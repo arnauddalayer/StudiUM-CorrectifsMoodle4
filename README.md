@@ -6,10 +6,13 @@ Ce dépôt vise à offrir des scripts ou méthodes à intégrer à StudiUM (avec
 **Mise en garde : le contenu de ce dépôt n'est publié qu’à des fins strictement éducatives. **
 
 ## Script pour exploiter toute la largeur de l'écran & afficher le menu de gauche au complet
+La nouvelle version de StudiUM basée sur Moodle 4 apporte un changement au niveau de la largeur disponible pour le contenu en raison de la présence de grandes marges.
+De plus, il a été constaté que le menu de StudiUM omet, en mode consultation, d'afficher les éléments de type `Zone texte et média` (anciennement `Étiquette`).
+Le script proposé vise à éliminer ces des problématiques. Le script a été testé avec succès sur Firefox (Windows) et Chrome (Windows et Android).
 
 ### Utilisation
 Intégrez le code HTML et JavaScript dans une ressource de cours StudiUM. Pour ce faire, il est recommandé de l'intégrer :
-* Dans une ressource de type `Zone texte et média` (anciennement `Étiquette`), dans la section `Introduction` du cours.
+* Dans une ressource de type `Zone texte et média`, dans la section `Introduction` du cours.
 * Après un texte visible (pour éviter l'affichage du code JavaScript dans le menu de gauche).
 
 
@@ -85,7 +88,16 @@ Pour modifier votre éditeur :
 
 ### Limitations
 Ce script semble ne pas poser de problème avec le `Mode d'édition`.
-Par contre, ces correctifs ne s'appliqueront pas si la section `Introduction` n'est pas visible, comme il est recommandé de l'intégrer. 
+Par contre, ces correctifs ne s'appliqueront pas si la section `Introduction` n'est pas visible, comme il est recommandé de l'intégrer.
+
+### Méthode alternative (Tampermonkey)
+Il est également possible d'intégrer les correctifs à l'aide de [`Tampermonkey`](https://www.tampermonkey.net/).
+Les avantages sont qu'il est possible de profiter des correctifs même si l'enseignant-e ne l'intègre pas dans son site de cours, et que ces correctifs s'appliqueront aussi sur les activités qui n'intègrent pas la section `Introduction` (comme les `Test`).
+Le désavantage, c'est que c'est une solution qui s'applique que localement sur un poste/navigateur/utilisateur à la fois.
+À priori, il ne semble pas avoir de problème si la version Tampermonkey si le correctif est déjà appliqué via StudiUM.
+Pour utiliser cette version :
+* Installez [`Tampermonkey`](https://www.tampermonkey.net/) dans votre navigateur.
+* Rendez-vous à l'adresse du [script](src/tampermonkey/StudiUM-CorrectifsMoodle4.js) et faites l'installation.
 
 
 ## Recommandation pour l'affichage d'images (ex. dans un test)
@@ -110,3 +122,6 @@ Pour ce faire :
   </p>
   ```
   où `URLIMAGE` est l'adresse notée à l'étape précédente.
+
+### Limitations
+Nous n'avons pas fait le test, mais il est possible que cette méthode ne fonctionne pas avec un test protégé par [`Safe Exam Browser`](https://safeexambrowser.org/).
