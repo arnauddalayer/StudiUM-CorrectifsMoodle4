@@ -97,7 +97,11 @@ Le désavantage, c'est que c'est une solution qui s'applique que localement sur 
 À priori, il ne semble pas avoir de problème si la version Tampermonkey si le correctif est déjà appliqué via StudiUM.
 Pour utiliser cette version :
 * Installez [`Tampermonkey`](https://www.tampermonkey.net/) dans votre navigateur.
-* Rendez-vous à l'adresse du [script](src/tampermonkey/StudiUM-CorrectifsMoodle4.js) et faites l'installation.
+* Rendez-vous à l'adresse du [script](src/tampermonkey/StudiUM-CorrectifsMoodle4.js).
+* Cliquez sur le bouton `Raw`.
+* Copiez l'intégralité du code du script.
+* Cliquez sur l'icone de `Tampermonkey` dans la barre des extensions, et cliquez sur `Ajouter un nouveau script...`.
+* Collez le code du script et sauvegardez.
 
 
 ## Recommandation pour l'affichage d'images (ex. dans un test)
