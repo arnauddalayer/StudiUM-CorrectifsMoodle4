@@ -1,14 +1,14 @@
 # StudiUM : Correctifs pour la version Moodle 4
 
 ## Description
-Ce dépôt vise à offrir des scripts ou méthodes à intégrer à StudiUM (avec Moodle v.4 déployé le 27 juin 2023) permettant de corriger certains irritants de la nouvelle interface.
+Ce dépôt vise à offrir des scripts ou méthodes à intégrer à StudiUM permettant de corriger certains irritants de la nouvelle interface.
 
 **Mise en garde : le contenu de ce dépôt n'est publié qu’à des fins strictement éducatives. **
 
-## Script pour exploiter toute la largeur de l'écran & afficher le menu de gauche au complet
-La nouvelle version de StudiUM basée sur Moodle 4 apporte un changement au niveau de la largeur disponible pour le contenu en raison de la présence de grandes marges.
-De plus, il a été constaté que le menu de StudiUM omet, en mode consultation, d'afficher les éléments de type `Zone texte et média` (anciennement `Étiquette`).
-Le script proposé vise à éliminer ces des problématiques. Le script a été testé avec succès sur Firefox (Windows) et Chrome (Windows et Android).
+## Script pour exploiter toute la largeur de l'écran
+La nouvelle version de StudiUM basée sur Moodle 4 (déployée le 27 juin 2023) a apporté un changement au niveau de la largeur disponible pour le contenu en raison de la présence de grandes marges.
+Cette problématique est demeurée avec la version de StudiUM basée sur Moodle 4.3 (déployée le 27 juin 2024).
+Le script proposé vise à éliminer ces marges. Le script a été testé avec succès sur Firefox (Windows) et Chrome (Windows et Android).
 
 ### Utilisation
 Intégrez le code HTML et JavaScript dans une ressource de cours StudiUM. Pour ce faire, il est recommandé de l'intégrer :
@@ -26,66 +26,18 @@ Pour modifier votre éditeur :
 
 ### JavaScript
 ```js
-<h1>Bonjour et bienvenue dans le site du cours STU1001 de l’été 2023</h1>
+<h1>Bonjour et bienvenue dans le site du cours STU1001 de l’été 2024</h1>
 <script type="text/javascript">
     window.addEventListener("load", pageFullyLoaded, false);
 
     function pageFullyLoaded(e) {
         utiliserTouteLargeur();
-        afficherMenuComplet().then(ajouterLiensEtiquettesMenu);
     }
     
     
     // Fonction pour supprimer la classe "limitedwidth" du body pour utiliser toute la largeur de l'écran
     function utiliserTouteLargeur() {
         document.body.classList.remove('limitedwidth');
-    }
-    
-    
-    // Fonction pour afficher tous les items du menu de gauche, incluant les éléments de type "zone de texte" (étiquettes)
-    function afficherMenuComplet() {
-        return new Promise(function(resolve, reject) {
-            var liElements = document.querySelectorAll('li.courseindex-item, li.courseindex-section');
-            if (liElements.length > 0) {
-                liElements.forEach(function(li) {
-                    li.classList.replace('d-flex-noedit', 'd-flex');
-                });
-                resolve();
-            } else {
-                // Si le menu n'est pas encore chargé, attendre et réessayer après une temporisation
-                setTimeout(function() {
-                    afficherMenuComplet().then(resolve).catch(reject);
-                }, 1000); // Temporisation de 1 seconde (ajustez selon vos besoins)
-            }
-        });
-    }
-    
-    
-    // Fonction pour ajouter des liens aux éléments de type "zone de texte" dans le menu de gauche
-    function ajouterLiensEtiquettesMenu() {
-        const items = document.querySelectorAll('.courseindex-item:not(:has(a))');
-        
-        items.forEach(item => {
-            const parentDiv = item.closest('.courseindex-section');
-            const parentLink = parentDiv.querySelector('a.courseindex-link');
-            const parentLinkHref = parentLink.getAttribute('href');
-            const itemId = item.getAttribute('data-id');
-            const newHref = `${parentLinkHref}#module-${itemId}`;
-            
-            const newLink = document.createElement('a');
-            newLink.setAttribute('href', newHref);
-            newLink.className = 'courseindex-link text-truncate';
-            newLink.setAttribute('data-action', 'togglecourseindexsection');
-            newLink.setAttribute('data-for', 'section_title');
-            newLink.setAttribute('tabindex', '-1');
-            
-            const itemName = item.querySelector('.courseindex-name').textContent;
-            newLink.textContent = itemName;
-            
-            const completionInfo = item.querySelector('.completioninfo');
-            completionInfo.parentNode.insertBefore(newLink, completionInfo.nextSibling);
-            item.removeChild(item.querySelector('.courseindex-name'));
-        });
     }
 </script>
 ```
